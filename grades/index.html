@@ -1,0 +1,254 @@
+{%extends 'base.html'%}
+{%import 'partials/img.html' as img%}
+
+
+{%block custom_meta%}
+<meta content="{{keywords|join(',')}}" name="keywords" />
+
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<meta content="{{shareText}}" name="description" />
+<title>{{pageTitle}}</title>
+<meta property="og:url" content="{{url}}" />
+<meta property="og:title" content="{{shareTitle}}"/>
+<meta property="og:description" content="{{shareText}}" name="description"/>
+<meta property="og:image" content="{{imgURL}}"/>
+<meta property="og:image:height" content="{{imgHeight}}"/>
+<meta property="og:image:width" content="{{imgWidth}}"/>
+<meta property="og:type" content="article" />
+<meta property="article:author" content="{{authorFBProfile}}" />
+<meta property="article:publisher" content="https://www.facebook.com/dallasmorningnews/" />
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@{{sectionTwitter}}" />
+<meta name="twitter:creator" content="@{{authorTwitter}}" />
+
+
+<script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        "headline": "{{shareTitle}}",
+        "url": "{{url}}",
+        "thumbnailUrl": "{{imgURL}}",
+        "dateCreated": "{{publishDate}}",
+        "articleSection": "{{section}}",
+        "creator": ["{{authors|join('","')|safe}}"],
+        "keywords": ["{{keywords|join('","')|safe}}"]
+      }
+</script>
+
+<meta property="og:keywords" content="{{keywords|join(',')}}"/>
+
+<meta name="news_keywords" content="{{keywords|join(',')}}"/>
+{%endblock%}
+
+
+{%block custom_head%}
+<link rel="canonical" href="{{url}}" />
+{%endblock%}
+
+
+
+{%block content%}
+
+<section class="content-well clearfix">
+
+	<header id="story-head">
+		<h3>Texas schools</h3>
+		<h1><span class="district-name-title">Your</span> schools, graded A to F</h1>
+
+    <div class="ui clearfix">
+      <input id="district-input" type="text" placeholder="Or search for a different district...">
+      {# <div class="district-btn"> Find </div> #}
+    </div>
+
+    <span class="section head chatter">Type in your school district name above to see its report card and a breakdown of how individual schools in the district scored.</span>
+
+		<h2>This school year is the first time the Texas Education Agency has issued grades to school districts in an A-F system based on how well they're educating kids.</h2>
+  </header>
+		<!-- end storyHead -->
+
+    <div class="byline-block">
+        <p>By <a target="_blank" href="mailto:jlsmith@dallasnews.com">Layne Smith</a> | Interactives Editor</p>
+        <p>Published September 20, 2018</p>
+        <!-- <p>Updated Month, Date, Year</p> -->
+    </div>
+    <!-- end bylineBlock -->
+
+	<div class="shareComments shareCommentsTop">
+		<ul id="share-bar1"></ul>
+	</div>
+	<!-- end shareComments -->
+
+  <div class="section distribution">
+    <div class="lead-chart-title">The number of <span class="district-name-chart">your ISD's</span> schools that scored A through F using
+      <div class="metric-select" tabindex="1">
+        <span class="selected-metric">Overall Performance</span>
+        <ul class="dropdown">
+          <li><a href="#">Overall Performance</a></li>
+          <li><a href="#">Academic Growth</a></li>
+      		<li><a href="#">Relative Performance</a></li>
+      		<li><a href="#">Student Achievement</a></li>
+      		<li><a href="#">Closing the Gaps</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="snapshot-chart-grades" id="chart-district"></div>
+    <div class="key">
+      <div class="entry">
+        <div class="box a"></div> A (90-100)
+      </div>
+      <div class="entry">
+        <div class="box b"></div> B (80-89)
+      </div>
+      <div class="entry">
+        <div class="box c"></div> C (70-79)
+      </div>
+      <div class="entry">
+        <div class="box d"></div> D (60-69)
+      </div>
+      <div class="entry">
+        <div class="box f"></div> F (0-59)
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section chatter">
+    The Texas Education Agency assigned each school a score from 0-100 based on four criteria. The criteria are academic growth, relative performance, student achievement, and how well they closed the education gap between minority sub-groups. The TEA then assigned an overall score. We took those numeric scores and assigned letter grades to help us see how each school in Texas measured up.
+  </div>
+
+  <div class="section metric-buttons">
+    <div class="button active" data-metric="Overall Performance">Overall<br/>Performance</div>
+    <div class="button" data-metric="Academic Growth">Academic<br/>Growth</div>
+    <div class="button" data-metric="Relative Performance">Relative<br/>Performance</div>
+    <div class="button" data-metric="Student Achievement">Student<br/>Achievement</div>
+    <div class="button" data-metric="Closing the Gaps">Closing<br/>the Gaps</div>
+  </div>
+
+  <!-- <div class="chatter" id="metric-explainer"></div> -->
+
+  <div class="section" id="district-snapshot">
+
+    <span class="district-name-head"></span>
+
+    <div class="school-type">
+      <span class="chatter">Score distribution by school type compared to district average and Texas average for schools of similar enrollment.</span>
+      <div class="snapshot-chart-schools" id="elementary-scores">
+        <span class="chart-name">Elementary schools</span>
+        <!-- <div id="elementary-bar-filter" class="dataTables_filter"><label>Search:<input type="search" aria-controls="high-table"></label></div> -->
+      </div>
+      <div class="snapshot-chart-schools" id="middle-scores">
+        <span class="chart-name">Middle schools</span>
+        <!-- <div id="middle-bar-filter" class="dataTables_filter"><label>Search:<input type="search" aria-controls="high-table"></label></div> -->
+      </div>
+      <div class="snapshot-chart-schools" id="high-scores">
+        <span class="chart-name">High schools</span>
+        <!-- <div id="high-bar-filter" class="dataTables_filter"><label>Search:<input type="search" aria-controls="high-table"></label></div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="section metric-buttons">
+    <div class="button active" data-metric="Overall Performance">Overall<br/>Performance</div>
+    <div class="button" data-metric="Academic Growth">Academic<br/>Growth</div>
+    <div class="button" data-metric="Relative Performance">Relative<br/>Performance</div>
+    <div class="button" data-metric="Student Achievement">Student<br/>Achievement</div>
+    <div class="button" data-metric="Closing the Gaps">Closing<br/>the Gaps</div>
+  </div>
+
+  <div class="section" id="district-map">
+    <div class="key">
+      <div class="entry">
+        <div class="circle a"></div> A (90-100)
+      </div>
+      <div class="entry">
+        <div class="circle b"></div> B (80-89)
+      </div>
+      <div class="entry">
+        <div class="circle c"></div> C (70-79)
+      </div>
+      <div class="entry">
+        <div class="circle d"></div> D (60-69)
+      </div>
+      <div class="entry">
+        <div class="circle f"></div> F (0-59)
+      </div>
+      <div class="entry">
+        <div class="circle single"></div> Not graded<sup>*</sup>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="district-table">
+
+    <span class="school-types">High Schools</span>
+    <table id="high-table" class="display" style="width:100%"></table>
+
+    <span class="school-types">Middle Schools</span>
+    <table id="middle-table" class="display" style="width:100%"></table>
+
+    <span class="school-types">Elementary Schools</span>
+    <table id="elementary-table" class="display" style="width:100%"></table>
+
+  </div>
+
+  <div class="section" id="district-neighbors"></div>
+
+
+
+	<section class="more clearfix">
+		<h5>Read more from The Dallas Morning News</h5>
+		<a class="clearfix" href="https://www.dallasnews.com/news/education/2018/08/31/texas-makes-tougher-students-leave-struggling-schools">
+			<img src="images/_promo1.jpg" alt="#" />
+			<h6>Hard to leave</h6>
+			<p>Texas has made it tougher for students to leave struggling schools</p>
+		</a>
+		<a class="clearfix" href="https://www.dallasnews.com/news/education/2018/08/24/charters-better-traditional-schools-texas-f-grading-system-suggests-maybe-not">
+			<img src="images/_promo2.jpg" alt="#" />
+			<h6>Are charters worth it?</h6>
+			<p>Are charters better than traditional schools? Texas’ A-F grading system suggests maybe not</p>
+		</a>
+		<a class="clearfix" href="https://www.dallasnews.com/life/curious-texas/2018/04/09/curious-texas-high-schools-state-best-teacher-pay">
+			<img src="images/_promo3.jpg" alt="#" />
+			<h6>Highest teacher pay</h6>
+			<p>Find out which specialty campuses in Texas tend to have the highest teacher salaries.</p>
+		</a>
+	</section>
+	<!-- end more -->
+
+
+
+
+</section>
+<!-- end contentWell -->
+{%endblock%}
+
+
+
+
+{%block custom_foot%}
+
+
+
+{%endblock%}
+
+
+
+
+
+{%block custom_social_meta%}
+<script type="text/javascript">
+  var storyTitle = "{{tweetText}}", // headline in tweet card
+	storyURL = "{{url}}",
+	leadText = "{{shareText}}", //description in tweet card
+	storyIMG = "{{imgURL}}",
+	storyAuthor = "{% for author in authors %}{{author}}{{', ' if not loop.last}}{% endfor %}",
+	twitterTag = "{{sectionTwitter}}",
+	comments = true,
+	share = true;
+	OAS_sitepage = 'www.dallasnews.com/{{desk}}/{{section}}/';
+</script>
+{%endblock%}

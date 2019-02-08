@@ -1,0 +1,592 @@
+@import 'base';
+@import 'header';
+@import 'footer';
+
+@import '../../node_modules/selectize/dist/css/selectize';
+
+.content-well {
+  overflow: inherit;
+  padding-bottom: 50px;
+}
+
+.race-synopsis {
+  border-top: 1px solid $black215;
+  padding-top: 20px;
+  width: 100%;
+  max-width: 650px;
+  margin: 0px auto 30px;
+  font-family: $sans;
+  // border: 1px solid blue;
+  .head {
+    display: block;
+    font-weight: bold;
+    font-size: 1.75rem;
+    margin-bottom: 5px;
+  }
+  .turnout {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    display: block;
+  }
+  .candidate {
+    float: left;
+    width: 50%;
+    position: relative;
+    .party {
+      position: absolute;
+      color: white;
+      text-align: center;
+      line-height: 25px;
+      font-size: 1.9rem;
+      font-weight: 700;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      &.republican{
+        background-color: $chartRed;
+      }
+      &.democrat{
+        background-color: $chartBlue;
+      }
+    }
+    span {
+      width: 50%;
+      float: left;
+      display: block;
+      font-size: 1.5rem;
+      line-height: 2rem;
+      &.name {
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+    }
+    .mug {
+      width: 100px;
+      height: 100px;
+      float: left;
+      margin-right: 10px;
+      // border: 1px solid red;
+      img {
+        width: 100%;
+        border-radius: 50%;
+      }
+    }
+    .percent {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-top: 5px;
+    }
+  }
+  .chartline{
+    width: 100%;
+    height: 20px;
+    float: left;
+    margin: 20px 0px;
+    .bar {
+      display: inline-block;
+      height: 100%;
+      float:left;
+      line-height: 20px;
+      color: white;
+      font-weight: 700;
+      font-size: 1.5rem;
+      float: left;
+      &.republican{
+        background-color: $chartRed;
+        text-align: right;
+        padding-right: 10px;
+      }
+      &.democrat{
+        text-align: left;
+        background-color: $chartBlue;
+        padding-left: 10px;
+      }
+      &.other{
+        background-color: $chartGray;
+        height: 20px;
+      }
+    }
+  }
+}
+
+
+
+.chart-container {
+  padding-top: 20px;
+  position:relative;
+  width: 100%;
+  pointer-events: none;
+  .chart-head {
+    padding-left: 30px;
+    font-size: 2.25rem;
+    font-weight: 700;
+    display: block;
+  }
+
+  .callouts {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+
+    .callout-container {
+      width: 40%;
+      max-width: 400px;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .rep-circle, .dem-circle {
+        display: inline-block;
+        margin-right: 10px;
+        height: 13px;
+        width: 13px;
+        border-radius: 50%;
+      }
+      .rep-circle {
+        background-color: $chartRed;
+      }
+      .dem-circle {
+        background-color: $chartBlue;
+      }
+
+
+      &.left {
+        float: left;
+        margin-left: 140px;
+        margin-right: 50%;
+        @media (max-width: 650px) {
+            width: 100%;
+            max-width: none;
+            float: none;
+            margin: 0px;
+        }
+      }
+      &.right {
+        float: right;
+        margin-right: 30px;
+        margin-left: 30%;
+        @media (max-width: 650px) {
+            width: 100%;
+            max-width: none;
+            float: none;
+            margin: 0px;
+        }
+      }
+      &.wide {
+        width: 75%;
+        margin: 0px auto;
+        max-width: none;
+        @media (max-width: 650px) {
+            width: 100%;
+            max-width: none;
+        }
+      }
+
+      .callout-content {
+        font-size: 1.5rem;
+        width: 100%;
+        padding: 20px;
+        background-color: white;
+        border: 1px solid whitesmoke;
+        pointer-events: auto;
+        line-height: 1.8rem;
+        box-shadow: 0px 3px 15px rgba(0,0,0,0.2);
+        @media (max-width: 600px) {
+          font-size: 1.3rem;
+          width: 90%;
+          margin: 0 auto;
+          padding: 10px;
+          line-height: 1.5rem;
+        }
+        .callout-select {
+          display: block;
+          padding-top: 20px;
+          width: 50%;
+          min-width: 200px;
+          margin: 1.2rem auto 0;
+        }
+
+        .box-head {
+          display: block;
+          font-size: 1.2em;
+          line-height: 1.7em;
+          font-weight: 700;
+        }
+
+        .republican {
+          color: $chartRed;
+          font-weight: 700;
+        }
+        .democrat {
+          color: $chartBlue;
+          font-weight: 700;
+        }
+
+        button {
+          display: block;
+          margin: 0px auto;
+          margin-top: 20px;
+          font-size: 1.5rem;
+          font-weight: 700;
+          background-color: $dmnblue;
+          border: none;
+          border-radius: 3px;
+          color: white;
+          padding: 10px 20px;
+        }
+      }
+    }
+  }
+
+  .hidden {
+    opacity: 0;
+  }
+
+  #election-turnout {
+    width: 100%;
+    height: 100vh;
+    pointer-events: auto;
+    position: relative;
+
+    #thumbTX {
+      position: absolute;
+      bottom: 50px;
+      left: 70px;
+      width: 200px;
+      height: 200px;
+      @media (max-width: 500px) {
+          display: none;
+      }
+
+      svg circle {
+        stroke-width: 0.5;
+      }
+
+      svg .thumb-county{
+        fill: whitesmoke;
+        stroke: silver;
+        stroke-width: 0.25;
+        &.active {
+          fill: $black215;
+        }
+      }
+    }
+
+    .tooltip {
+        font-family: $sans;
+        font-size: 13px;
+        color: $chartCopy;
+        position: absolute;
+        padding: 10px;
+        background: white;
+        border: 1px solid $chartGray;
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity .25s;
+        -webkit-transition: opacity .25s;
+        min-width: 150px;
+        &.active{
+          opacity: 1;
+        }
+        .content table {
+          td {
+            padding-bottom: 3px;
+            span {
+              display: inline-block;
+              width: 20px;
+              text-align: center;
+              color: white;
+              padding: 0px 3px;
+              font-weight: 700;
+              margin-right: 3px;
+              &.r {
+                background-color: $chartRed;
+              }
+              &.d {
+                background-color: $chartBlue;
+              }
+              &.l {
+                background-color: $chartYellow;
+              }
+            }
+          }
+          .race, .turnout {
+            font-size: 1.1rem;
+          }
+          .race {
+            padding-bottom: 13px;
+          }
+          .turnout {
+            padding-top: 13px;
+          }
+        }
+    }
+
+    .active {
+      opacity: 1 !important;
+      stroke: black;
+    }
+
+    .hidden {
+      pointer-events: none;
+      user-select: none;
+      -moz-user-select: none;
+      opacity: 0.1 !important;
+    }
+
+    .suppressed {
+      pointer-events: none;
+      user-select: none;
+      -moz-user-select: none;
+    }
+
+    #chart {
+      .domain {
+        display: none;
+      }
+      .tick line {
+        stroke: whitesmoke;
+        stroke-width: 2;
+      }
+      .center-line {
+        stroke: silver;
+      }
+      .trail {
+        stroke: $black215;
+        fill: none;
+      }
+      .pointer-line {
+        stroke: $black215;
+        fill: none;
+      }
+      .movingLeft, .movingRight {
+        stroke: $black215;
+        fill: none;
+      }
+
+      svg {
+
+        .dem-counts {
+          font-size: 36px;
+        }
+        .rep-counts {
+          font-size: 36px;
+        }
+        .dem-voter-counts {
+          font-size: 15px;
+        }
+        .rep-voter-counts {
+          font-size: 15px;
+        }
+        .counties {
+          font-size: 13px;
+        }
+        .title {
+          font-size: 18px;
+          @media (max-width: 600px) {
+              font-size: 13px;
+          }
+        }
+        .countyName {
+          font-weight: 700;
+          font-size: 15px;
+        }
+
+        // .yearText {
+        //   paint-order: stroke;
+        //   stroke: white;
+        //   stroke-width: 1px;
+        //   stroke-linecap: butt;
+        //   stroke-linejoin: miter;
+        // }
+
+        .triangle {
+          &.republican {
+            fill: $chartRed;
+          }
+          &.democrat {
+            fill: $chartBlue;
+          }
+        }
+
+        .active {
+          stroke: grey;
+        }
+
+        .republican {
+          // fill: $chartRed;
+          &.y2018 {
+            stroke: darken($chartRed, 10);
+            fill: $chartRed;
+          }
+          &.y2016 {
+            stroke: $chartRed;
+            fill: lighten($chartRed, 10);
+          }
+          &.y2014 {
+            stroke: lighten($chartRed, 10);
+            fill: lighten($chartRed, 20);
+          }
+          &.y2012 {
+            stroke: lighten($chartRed, 20);
+            fill: lighten($chartRed, 30);
+          }
+          &.y2010 {
+            stroke: lighten($chartRed, 30);
+            fill: lighten($chartRed, 35);
+          }
+          &.y2008 {
+            stroke: lighten($chartRed, 35);
+            fill: lighten($chartRed, 40);
+          }
+        }
+
+        .democrat {
+          // fill: $chartBlue;
+          &.y2018 {
+            stroke: darken($chartBlue, 10);
+            fill: $chartBlue;
+          }
+          &.y2016 {
+            stroke: $chartBlue;
+            fill: lighten($chartBlue, 10);
+          }
+          &.y2014 {
+            stroke: lighten($chartBlue, 10);
+            fill: lighten($chartBlue, 20);
+          }
+          &.y2012 {
+            stroke: lighten($chartBlue, 20);
+            fill: lighten($chartBlue, 30);
+          }
+          &.y2010 {
+            stroke: lighten($chartBlue, 30);
+            fill: lighten($chartBlue, 35);
+          }
+          &.y2008 {
+            stroke: lighten($chartBlue, 35);
+            fill: lighten($chartBlue, 40);
+          }
+        }
+
+        circle.highlighted {
+          stroke: black !important;
+        }
+
+      }
+    }
+  }
+}
+
+.controls {
+  // display: none;
+  font-family: $sans;
+  padding: 10px;
+  width: 100%;
+  margin: 0px auto;
+  text-align: center;
+  background-color: whitesmoke;
+  width: 100%;
+  height: 55px;
+  position: fixed;
+  top: -55px;
+  z-index: 1000;
+
+  .selectize-control {
+    display: inline-block;
+    min-width: 200px;
+    width: 200px;
+    font-family: $sans;
+    margin-bottom: 15px;
+    text-align: left;
+    @media (max-width: 500px) {
+      min-width: 150px;
+      width: 150px;
+    }
+  }
+
+  button {
+
+    border-radius: 3px 3px 0 0;
+    border: 1px solid #d0d0d0;
+    padding: 8px 8px;
+    display: inline-block;
+    width: 150px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.1);
+    border-radius: 3px;
+    cursor: pointer;
+    color: $chartCopy;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 18px;
+    -webkit-font-smoothing: inherit;
+    vertical-align: baseline;
+
+    &.flipper {
+      margin: 0px 20px;
+    }
+
+    &.republican {
+      background: $chartRed;
+      color: white;
+      font-weight: 700;
+    }
+
+    &.democrat {
+      background: $chartBlue;
+      color: white;
+      font-weight: 700;
+    }
+  }
+}
+
+.key {
+  position: absolute;
+  bottom: 5vh;
+  right: 10px;
+  li {
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+    position: relative;
+    margin-right: 5px;
+    font-size: 1.1rem;
+    &:last-of-type {
+      margin-right: 0;
+    }
+    &:before {
+      @include psuedoElement(13px, 10px, absolute);
+      top: -13px;
+      left: 0;
+    }
+    &:after {
+      @include psuedoElement(13px, 10px, absolute);
+      top: -13px;
+      right: 0;
+    }
+    &.key2008:before {background-color: lighten($chartBlue, 40); border: 1px solid lighten($chartBlue, 35);}
+    &.key2010:before {background-color: lighten($chartBlue, 35); border: 1px solid lighten($chartBlue, 30);}
+    &.key2012:before {background-color: lighten($chartBlue, 30); border: 1px solid lighten($chartBlue, 20);}
+    &.key2014:before {background-color: lighten($chartBlue, 20); border: 1px solid lighten($chartBlue, 10);}
+    &.key2016:before {background-color: lighten($chartBlue, 10); border: 1px solid $chartBlue;}
+    &.key2018:before {background-color: $chartBlue; border: 1px solid darken($chartBlue, 10);}
+    &.key2008:after {background-color: lighten($chartRed, 40); border: 1px solid lighten($chartRed, 35);}
+    &.key2010:after {background-color: lighten($chartRed, 35); border: 1px solid lighten($chartRed, 30);}
+    &.key2012:after {background-color: lighten($chartRed, 30); border: 1px solid lighten($chartRed, 20);}
+    &.key2014:after {background-color: lighten($chartRed, 20); border: 1px solid lighten($chartRed, 10);}
+    &.key2016:after {background-color: lighten($chartRed, 10); border: 1px solid $chartRed;}
+    &.key2018:after {background-color: $chartRed; border: 1px solid darken($chartRed, 10);}
+  }
+}
+
+
+.last-call {
+  height: 200vh;
+}

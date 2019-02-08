@@ -1,0 +1,488 @@
+@import 'base';
+@import 'header';
+@import 'footer';
+@import 'jquery.dataTables.min';
+@import 'responsive.dataTables.min';
+@import 'jquery-ui';
+
+$breakpoint: 415px;
+$minSize: 12px;
+
+#story-head h1 {
+  @media screen and (max-width: $breakpoint) {
+    font-size: 4.6rem;
+  }
+}
+
+.dataTables_filter input {
+  margin-left: 5px;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>td:first-child:before, table.dataTable.dtr-inline.collapsed>tbody>tr[role="row"]>th:first-child:before {
+    background-color: $dmnblue;
+}
+
+
+label{
+  font-size: $minSize;
+}
+svg text {
+  font-size: $minSize;
+}
+.dataTables_wrapper {
+  font-size: $minSize;
+}
+
+.a {
+  background-color: $chartBlue;
+  color: white !important;
+}
+.b {
+  background-color: $chartGreen;
+  color: white !important;
+}
+.c {
+  background-color: $chartYellow;
+  color: white !important;
+}
+.d {
+  background-color: $chartOrange;
+  color: white !important;
+}
+.f {
+  background-color: $chartRed;
+  color: white !important;
+}
+.single {
+  background-color: $black121;
+  color: white !important;
+}
+
+textarea, select, input, button { outline: none; }
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: $chartText;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: $chartText;
+}
+:-ms-input-placeholder { /* IE 5+ */
+  color: $chartText;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: $chartText;
+}
+
+.ui {
+  font-family: $sans;
+  font-size: 1.25rem;
+  width: 90%;
+  margin: 40px 0px 10px;
+  text-align: center;
+  display: inline-flex;
+  @media screen and (max-width: $breakpoint) {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  input {
+    width: 100%;
+    height: 50px;
+    float: left;
+    border: none;
+    background-color: whitesmoke;
+    padding-left: 20px;
+    font-size: 2rem;
+    font-family: $sans;
+    @media screen and (max-width: $breakpoint) {
+      width: 100%;
+      float: none;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+  }
+  .district-btn {
+    float: left;
+    background-color: $dmnblue;
+    color: white;
+    font-weight: 700;
+    width: 95px;
+    height: 50px;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+    text-transform: uppercase;
+    &:hover {
+      background-color: lighten($dmnblue, 50);
+      color: black;
+      font-weight: normal;
+    }
+    @media screen and (max-width: $breakpoint) {
+      float: left;
+      margin: 0px auto;
+      width: 50%;
+      border-radius: 5px;
+    }
+  }
+}
+
+.ui-menu-item a {
+  font-weight: 400 !important;
+  font-family: $sans !important;
+  font-size: 1.5rem !important;
+  padding: 5px !important;
+  border-radius: 0 !important;
+  border: none !important;
+  background: whitesmoke !important;
+  cursor: pointer !important;
+}
+.ui-state-focus {
+  font-weight: 700 !important;
+  width: 100% !important;
+  background-color: white !important;
+}
+.ui-corner-all {
+  border: none !important;
+}
+.ui-state-focus {
+  margin: 0px !important;
+  color: $dmnblue !important;
+  font-weight: 700 !important;
+}
+.ui-autocomplete {
+  z-index: 3000 !important;
+}
+
+
+.section {
+  font-family: $sans;
+  margin:40px 0px;
+  width: 100%;
+  span {
+    width: 100%;
+    display: block;
+    &.district-name-head {
+      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 10px;
+    }
+    &.district-name-chart {
+      display: inline;
+      border-bottom: 1px solid $dmnblue;
+      font-weight: 700;
+    }
+    &.chart-name {
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+      padding-right: 10px;
+    }
+  }
+  &.chatter{
+    font-size: 1.35rem;
+    line-height: 1.35;
+    &.head{
+      width: calc(100% - 100px);
+      text-align: left;
+      margin: 0px auto 40px auto;
+      display: block;
+    }
+  }
+}
+
+.metric-buttons {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  .button {
+    margin: 0px 10px;
+    padding: 0px 10px;
+    width: 16%;
+    height: 50px;
+    background-color: whitesmoke;
+    cursor: pointer;
+    font-size: 1.35em;
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    // &:not(:first-child):not(:last-child){
+    //   margin: 0px 10px;
+    // }
+    &:hover{
+      background-color: lighten($dmnblue, 50);
+    }
+    &.active{
+      background-color: $dmnblue;
+      color: white;
+      font-weight: 700;
+    }
+    @media (max-width: 700px) {
+      width: 45%;
+      margin-bottom: 20px;
+    }
+    @media (max-width: $breakpoint) {
+      width: 43%;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+#district-map {
+  position: relative;
+  border: none;
+  width: 100%;
+  height: 500px;
+  margin-top: 20px;
+  .selected {
+    r: 15px;
+  }
+  .mapboxgl-popup {
+    width: 250px;
+    z-index: 2000;
+    .mapboxgl-popup-content{
+      line-height: 1.75rem;
+      span {
+        margin: 0px;
+      }
+      strong {
+        font-weight: 700;
+      }
+      .type{
+        text-transform: capitalize !important;
+      }
+      .metric {
+        display: inline-flex;
+        justify-content: space-between;
+        .label {
+          display: inline;
+          width: 170%;
+        }
+        .grades {
+          width: 100%;
+          display: inline-flex;
+          justify-content: space-between;
+          .grade {
+            display: inline;
+            font-weight: 700;
+            color: #dedede;
+            text-align: center;
+          }
+        }
+      }
+
+    }
+  }
+  .mapboxgl-ctrl-bottom-left {
+    z-index: 2500;
+  }
+  .campus-name {
+    font-weight: 700;
+  }
+  svg {
+    width: 100%;
+    height: 500px;
+    position: absolute;
+    z-index: 100;
+    circle.circle {
+      cursor: pointer;
+      transition: r 0.3s;
+    }
+    line.selected {
+      opacity: 1.0;
+      stroke: black;
+      y1: -30;
+      transition: all 0.3s;
+    }
+  }
+  .key {
+      position: absolute;
+      bottom: 25px;
+      right: 10px;
+      background-color: white;
+      width: 110px;
+      z-index: 1000;
+      padding: 10px;
+      .entry {
+        display: block;
+      }
+      .circle {
+        width: 8px;
+        height: 8px;
+        display: inline-block;
+        margin-right: 3px;
+        border-radius: 50%;
+      }
+      @media screen and (max-width: $breakpoint) {
+        display: none;
+      }
+
+    }
+}
+
+.distribution {
+  display: block;
+  margin-bottom: 20px;
+  position: relative;
+
+  .metric-select {
+      /* Size & position */
+      position: relative;
+      margin: 0 auto;
+      // padding: 5px 0px 5px 2px;
+      /* Styles */
+      background: #fff;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease-out;
+      display: inline !important;
+      font-weight: 700;
+      color: $dmnblue;
+      padding-right: 30px;
+
+      &:after { /* Little arrow */
+        content: "";
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        margin-top: -3px;
+        border-width: 6px 6px 0 6px;
+        border-style: solid;
+        border-color: $dmnblue transparent;
+      }
+
+      .selected-metric {
+        display: inline;
+      }
+
+      .dropdown {
+        /* Size & position */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        list-style: none;
+        transition: all 0.3s ease-out;
+
+        /* Hiding */
+        max-height: 0;
+        overflow: hidden;
+
+        li {
+          padding: 1px 10px ;
+          a {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            padding: 10px 0;
+            transition: all 0.3s ease-out;
+          }
+          &:hover a {
+            color: $dmnblue;
+          }
+        }
+      }
+
+      &.active {
+        background: white;
+        box-shadow: none;
+        border-bottom: none;
+        &:after {
+          border-color: $dmnblue transparent;
+        }
+        .dropdown {
+          background: whitesmoke;
+          max-height: 400px;
+        }
+      }
+    }
+
+
+  .lead-chart-title {
+    width: 100%;
+    font-size: 1.5rem;
+    display: block !important;
+    margin-bottom: 10px;
+    line-height: 2rem;
+  }
+
+  .snapshot-chart-grades {
+    width: 100%;
+    height: 50px;
+    .bar-count {
+      font-weight: 700;
+      font-size: 1.35rem;
+      fill: white;
+    }
+  }
+  .key {
+    margin-top: 5px;
+    display: block;
+    font-size: 1.25rem;
+    .entry {
+      display: inline-block;
+      margin-right: 15px;
+    }
+    .box {
+      width: 8px;
+      height: 8px;
+      display: inline-block;
+      margin-right: 3px;
+    }
+  }
+
+}
+
+.school-type {
+  .chatter {
+    font-size: 1.35rem;
+    margin-bottom: 20px;
+  }
+  .snapshot-chart-schools {
+    // border: 1px solid grey;
+    width: 100%;
+    height: 135px;
+    margin-bottom: 20px;
+    .chart-name {
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    span {
+      float: left;
+      width: auto;
+    }
+    div {
+      float: right;
+      margin-bottom: 7px;
+    }
+  }
+}
+
+#district-table {
+  padding-top: 0px;
+  .school-types{
+    font-weight: 700;
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin: 40px 0px 20px;
+  }
+}
+
+svg .line {
+  cursor: pointer;
+}
+.school-type-hover {
+  font-family: $sans;
+  font-size: 1.3em;
+}
+.axis path, .axis line {
+  display:none;
+}
+
+.mean-number {
+  font-weight: 700;
+}

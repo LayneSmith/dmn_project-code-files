@@ -1,0 +1,280 @@
+{%extends 'base.html'%}
+{%import 'partials/img.html' as img%}
+
+
+{%block custom_meta%}
+<meta content="{{keywords|join(',')}}" name="keywords" />
+
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<meta content="{{shareText}}" name="description" />
+<title>{{pageTitle}}</title>
+<meta property="og:url" content="{{url}}" />
+<meta property="og:title" content="{{shareTitle}}"/>
+<meta property="og:description" content="{{shareText}}" name="description"/>
+<meta property="og:image" content="{{imgURL}}"/>
+<meta property="og:image:height" content="{{imgHeight}}"/>
+<meta property="og:image:width" content="{{imgWidth}}"/>
+<meta property="og:type" content="article" />
+<meta property="article:author" content="{{authorFBProfile}}" />
+<meta property="article:publisher" content="https://www.facebook.com/dallasmorningnews/" />
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@{{sectionTwitter}}" />
+<meta name="twitter:creator" content="@{{authorTwitter}}" />
+
+<script type="application/ld+json">
+      {
+        "@context": "http://schema.org",
+        "@type": "NewsArticle",
+        "headline": "{{shareTitle}}",
+        "url": "{{url}}",
+        "thumbnailUrl": "{{imgURL}}",
+        "dateCreated": "{{publishDate}}",
+        "articleSection": "{{section}}",
+        "creator": ["{{authors|join('","')|safe}}"],
+        "keywords": ["{{keywords|join('","')|safe}}"]
+      }
+</script>
+
+<meta property="og:keywords" content="{{keywords|join(',')}}"/>
+
+<meta name="news_keywords" content="{{keywords|join(',')}}"/>
+{%endblock%}
+
+
+{%block custom_head%}
+<link rel="canonical" href="{{url}}" />
+{%endblock%}
+
+
+{%block content%}
+
+<section class="content-well clearfix">
+
+	<header id="story-head">
+		<h1>Shifting tides of Texas politics</h1>
+		<h2>It may not be a blue wave, but recent elections suggest the current may be changing across the state</h2>
+	</header>
+		<!-- end storyHead -->
+
+  <div class="byline-block">
+      <p>By <a target="_blank" href="mailto:jlsmith@dallasnews.com">Layne Smith</a> | Interactives Journalist</p>
+      <p>Published Nov. 15, 2018</p>
+      <!-- <p>Updated Month, Date, Year</p> -->
+  </div>
+  <!-- end bylineBlock -->
+
+	<div class="shareComments shareCommentsTop">
+		<ul id="share-bar1"></ul>
+	</div>
+	<!-- end shareComments -->
+
+  <p class="intro"><span class="dropcap">R</span>epublican U.S. Sen. Ted Cruz’s narrow victory over Beto O’Rourke Nov. 6 could end up being a bellwether for the political leanings of Texas. While the state remains red, Cruz’s margin of victory was only 2.6 percentage points, easily the best a Democratic Senate candidate has done in the state in the last 30 years.</p>
+  <p>And while O’Rourke’s near miss left the Democrats without a statewide victory yet again, it does signal that a change may be on the horizon. His campaign furthered gains made by the party in the last four years in some of the state’s largest urban counties, and closed the gap in midsized suburban counties, such as Collin and Denton.</p>
+  <p>That’s a good showing for a state party that hasn’t sent a Democrat to the Senate in 30 years or had a candidate carry the state in a presidential election in nearly 40.</p>
+  <p>To further study this trend, <em>The Dallas Morning News</em> looked at county-by-county election results for the 2008, 2012 and 2016 presidential races, the 2014 and 2018 Senate races, and the 2010 gubernatorial race. The results illustrate some recent trends:</p>
+
+  <!-- <p>DESIGNED RACE BOXES WITH TEXAS OVERALL NUMBERS - Races we looked at... 2008 Obama/McCain - 2010 Cornyn/??  - 2012 Obama/Romney - 2014 ??/?? - 2016 Trump/Clinton - 2018 Cruz/O’Rourke </p> -->
+
+</section>
+
+<div class="controls">
+
+  <select id="select-county">
+    <option value="all">All counties</option>
+  </select>
+
+  <select class="callout-select" id="select-region2">
+    <option value="All regions">All regions</option>
+    <option value="North Texas">North Texas</option>
+    <option value="East Texas">East Texas</option>
+    <option value="Central Texas">Central Texas</option>
+    <option value="South Texas">South Texas</option>
+    <option value="West Texas">West Texas</option>
+    <option value="Gulf Coast">Gulf Coast</option>
+    <option value="Panhandle">Panhandle</option>
+  </select>
+
+</div>
+
+<div id="turnout-trigger"></div>
+<div class="clearfix chart-container">
+  <div class="clearfix" id="election-turnout">
+    <div class="tooltip"></div>
+    <span class="chart-head">Election results for Texas counties</span>
+    <div id="chart"></div>
+    <div id="thumbTX"></div>
+    <ul class="key">
+      <li class="key2008">2008</li>
+      <li class="key2010">2010</li>
+      <li class="key2012">2012</li>
+      <li class="key2014">2014</li>
+      <li class="key2016">2016</li>
+      <li class="key2018">2018</li>
+    </ul>
+  </div>
+  <div class="clearfix callouts">
+    <div class="spacer clearfix callout-container"></div>
+    <div class="wide clearfix callout-container">
+      <div id="reveal2018" class="callout-content">
+        <span class="box-head">A close race</span>
+        The number of Texas counties supporting the <span class="republican">Republican</span> candidate, Ted Cruz, outpaced the <span class="democrat">Democratic</span> candidate, Beto O’Rourke, by a ratio of nearly 7-to-1. However, the small handful of urban counties with the most voters (the larger circles) clearly supported O’Rourke.
+      </div>
+    </div>
+    <div class="left clearfix callout-container">
+      <div id="hideDemocrats" class="callout-content">
+        <span class="box-head"><span class="rep-circle"></span>Republican counties</span>
+        The majority of votes for Cruz came from a large number of small, more rural counties, along with some populous suburban counties such as Denton and Collin and suburbs around Houston.
+      </div>
+    </div>
+    <div class="right clearfix callout-container">
+      <div id="fadeInDemsFadeOutReps" class="callout-content">
+        <span class="box-head"><span class="dem-circle"></span>Democratic counties</span>
+        O’Rourke carried fewer counties, many of which were urban centers with more voters. Cities including Houston, Dallas, Austin and San Antonio showed up for the Democrats in this election.
+      </div>
+    </div>
+    <div class="wide clearfix callout-container">
+      <div id="fadeOutDemsFadeInNorthTexas2018" class="callout-content">
+        <span class="box-head">Regional records</span>
+        A regional analysis shows certain areas in Texas — the Panhandle, West Texas and East Texas — voted overwhelmingly <span class="republican">Republican</span>, while North and South Texas are home to significant <span class="democrat">Democratic</span> strongholds. Select a region to see how they compare.
+        <select class="callout-select" id="select-region1">
+          <option value="All regions">All regions</option>
+          <option value="North Texas" selected>North Texas</option>
+          <option value="East Texas">East Texas</option>
+          <option value="Central Texas">Central Texas</option>
+          <option value="South Texas">South Texas</option>
+          <option value="West Texas">West Texas</option>
+          <option value="Gulf Coast">Gulf Coast</option>
+          <option value="Panhandle">Panhandle</option>
+        </select>
+      </div>
+    </div>
+    <div class="wide clearfix callout-container">
+      <div id="everyRace" class="callout-content">
+        <span class="box-head">Election history</span>
+        An overlay of every top-ballot race since 2008 highlights both the majority of Texas counties carried by Republicans as well as high-population counties that have been crucial to Democratic campaigns.
+      </div>
+    </div>
+    <div class="right clearfix callout-container">
+      <div id="showDallasCounty" class="callout-content">
+        <span class="box-head">A look at Dallas County</span>
+        Democrats have carried Dallas County in every top-ballot race since 2008 and have pushed the county further blue in the past two elections.
+      </div>
+    </div>
+
+    <div class="left clearfix callout-container">
+      <div id="showDallasSuburbs" class="callout-content">
+        <span class="box-head">A look at Dallas suburbs</span>
+        While Dallas County is an established Democratic stronghold, the party has also made up significant ground in the surrounding suburban counties since 2014.
+      </div>
+    </div>
+
+    <div class="left clearfix callout-container">
+      <div id="showTarrantCounty" class="callout-content">
+        <span class="box-head">Tarrant County goes blue</span>
+        Tarrant County, home to Fort Worth, has long been recognized as a Republican stronghold. But O’Rourke was able to flip the county in 2018, continuing a shift to blue that began with the 2016 presidential election.
+      </div>
+    </div>
+
+    <div class="left clearfix callout-container">
+      <div id="showDemFlippers2008" class="callout-content">
+        <span class="box-head">Flipping to the Democrats</span>
+        <p>Only five Texas counties that voted Republican in the 2008 presidental elecation went for O’Rourke in 2018. Southern Gulf Coast Kenedy County, with its 309 total votes, was the only Democratic county in the 2008 presidential election to go for Cruz in 2018.</p>
+        <button id="showFlippers2008" class="flippingLeft" >Republican flippers since 2008</button>
+      </div>
+    </div>
+
+    <div class="right clearfix callout-container">
+      <div id="showDemFlippers2014" class="callout-content">
+        <span class="box-head">Flipping to the Democrats</span>
+        <p>However, 14 Republican counties in the 2014 Senate election turned blue for O’Rourke this year, while no counties went from blue to red over the same period.</p>
+      </div>
+    </div>
+
+    <div class="wide clearfix callout-container">
+      <div id="showLeftLeaning" class="callout-content">
+        <span class="box-head">Momentum change</span>
+        <p>Voting data shows Democrats made gains in 205 Texas counties since the 2014 election. In many counties, this represents a pullback from a Republican trend leading up to and including the 2014 election. Forty-nine counties trended more Republican from the 2014 Senate race to 2018.</p>
+        <button id="moving" class="movingLeft">Counties moving Republican</button>
+      </div>
+    </div>
+
+    <div class="wide clearfix callout-container">
+      <div id="playground" class="callout-content">
+        <span class="box-head"></span>
+        Texas has been considered a red state for decades. While this recent move toward Democratic candidates may not be a blue wave, data suggests it could be the beginning of a change in the tide. Displayed is every county's top-ballot election data since 2008. Use the select menu to filter results by county or region, or touch the circles to see election results for that county:
+      </div>
+    </div>
+
+    <div class="wide clearfix callout-container last-call">
+      <div id="last-container"></div>
+    </div>
+
+  </div>
+</div>
+
+
+<section class="content-well">
+
+    <section class="credits">
+        <p>Author, design and development: <a href="mailto:jlsmith@dallasnews.com">Layne Smith</a></p>
+        <p>Editor: <a href="mailto:jhancock@dallasnews.com">John Hancock</a></p>
+        <p>Copy Editor: <a href="mailto:astewart@dallasnews.com">Allison Stewart</a></p>
+    </section>
+	<!-- end credits -->
+
+  <section class="more">
+    <h5>More from The Dallas Morning News</h5>
+    <div class="more__grid">
+      <a class="clearfix" href="https://interactives.dallasnews.com/2018/9-seconds/">
+        <img src="images/_refer1.jpg" alt="Fill this in">
+        <h6>9 Seconds</h6>
+        <p>The Dallas Morning News chronicles what happened when a Balch Springs police officer raised his rifle and an innocent boy died.</p>
+      </a>
+      <a class="clearfix" href="https://interactives.dallasnews.com/2018/texas-schools-grades/">
+        <img src="images/_refer3.jpg" alt="Fill this in">
+        <h6>Texas schools, graded A to F</h6>
+        <p>This school year is the first time the Texas Education Agency has issued grades to school districts in an A-F system based on how well they're educating kids.</p>
+      </a>
+      <a class="clearfix" href="https://interactives.dallasnews.com/2018/texas-meets-washington-dc/">
+        <img src="images/_refer2.jpg" alt="Fill this in">
+        <h6>Hello, Washington? It’s Texas</h6>
+        <p>Texas politicians have enjoyed easy access to the White House and had an outsize role in shaping federal policy.</p>
+      </a>
+    </div>
+  </section>
+	<!-- end more -->
+
+
+
+
+</section>
+<!-- end contentWell -->
+{%endblock%}
+
+
+
+
+{%block custom_foot%}
+	<script type="text/javascript"></script>
+{%endblock%}
+
+
+
+
+
+{%block custom_social_meta%}
+<script type="text/javascript">
+  var storyTitle = "{{tweetText}}", // headline in tweet card
+	storyURL = "{{url}}",
+	leadText = "{{shareText}}", //description in tweet card
+	storyIMG = "{{imgURL}}",
+	storyAuthor = "{% for author in authors %}{{author}}{{', ' if not loop.last}}{% endfor %}",
+	twitterTag = "{{sectionTwitter}}",
+	comments = true,
+	share = true;
+	OAS_sitepage = 'www.dallasnews.com/{{desk}}/{{section}}/';
+</script>
+{%endblock%}
